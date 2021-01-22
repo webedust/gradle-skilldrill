@@ -3,12 +3,88 @@
  */
 package gradle.skilldrill;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
+import javafx.application.Application;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class App extends Application
+{
+    @Override
+    public void start(Stage stage) throws Exception
+    {
+        stage.setTitle("Course View");
+
+        // Students list
+        ListView<Student> listStd = new ListView<>();
+
+        // "Is taking" label
+        Label lbTaking = new Label("Is Taking");
+
+        // Courses list
+        ListView<Course> listCourses = new ListView<>();
+
+        // "Load Data" button
+        Button btnLoad = new Button("Load Data");
+
+        // Add listeners
+        btnLoad.setOnAction(val -> ButtonLoadPressed(listStd));
+        listStd.setOnMouseClicked(val -> ListStudentPressed(listStd, listCourses));
+
+        // Layout
+        GridPane grid = new GridPane();
+        GridPane.setConstraints(listStd, 0, 0);
+        GridPane.setConstraints(lbTaking, 1, 0);
+        GridPane.setConstraints(listCourses, 2, 0);
+        GridPane.setConstraints(btnLoad, 2, 1);
+        grid.getChildren().addAll(listStd, lbTaking, listCourses, btnLoad);
+
+        // Scene
+        Scene scene = new Scene(grid, 640, 480);
+        stage.setScene(scene);
+
+        // Final
+        stage.show();
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    /** Load button is pressed.
+     * @param out  Where to display students list. */
+    void ButtonLoadPressed(ListView<Student> out)
+    {
+        // Clear list in case button is pressed again
+        out.getItems().clear();
+
+        IOManager io = new IOManager();
+        Student[] arrStudent = io.readData("students.json");
+        ArrayList<Student> students = new ArrayList<>();
+
+        Collections.addAll(students, arrStudent);
+
+        for (Student student : students)
+            out.getItems().add(student);
+    }
+
+    /** Any student in student list is pressed.
+     * @param in  List to get students from.
+     * @param out  Where to display courses list for student. */
+    void ListStudentPressed(ListView<Student> in, ListView<Course> out)
+    {
+        // Clear list in case button is pressed again
+        out.getItems().clear();
+
+        Student std = in.getSelectionModel().getSelectedItem();
+
+        // Ensure student is not null in case empty list item selected
+        if (std != null)
+            for (Course course : std.getCourses())
+                out.getItems().add(course);
+    }
+
+    public static void main(String[] args)
+    {
+        Application.launch(args);
     }
 }

@@ -1,0 +1,55 @@
+[
+  {
+    "firstName": "Alpha",
+    "lastName": "Bravo",
+    "courses": [
+      {
+        "number": 1000,
+        "subject": "CS",
+        "title": "How to Type"
+      },
+      {
+        "number": 2000,
+        "subject": "INFO",
+        "title": "How to Get Information"
+      }
+    ]
+  },
+  {
+    "firstName": "Charlie",
+    "lastName": "Delta",
+    "courses": [
+      {
+        "number": 1500,
+        "subject": "CS",
+        "title": "Better Typing"
+      },
+      {
+        "number": 2300,
+        "subject": "INFO",
+        "title": "Kindergarten Informatics"
+      }
+    ]
+  },
+    {
+    "firstName": "Echo",
+    "lastName": "Foxtrot",
+    "courses": [
+      {
+        "number": 4000,
+        "subject": "CS",
+        "title": "Speed Typing"
+      },
+      {
+        "number": 4001,
+        "subject": "INFO",
+        "title": "Information"
+      },
+	  {
+        "number": 2424,
+        "subject": "MATH",
+        "title": "Hours of the Day"
+      }
+    ]
+  }
+]
